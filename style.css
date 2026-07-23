@@ -84,19 +84,32 @@ section, .footer {
 }
 
 /* ============================================
-   DIAGONAL DIVIDER — signature element
-   ============================================ */
+   DIAGONAL DIVIDER — signature element, animated
+   ============================================
+   Uses a tiled (not "repeating-") linear-gradient with a fixed
+   background-size, then animates background-position by exactly one
+   tile width. That combination is what makes the loop seamless —
+   animating a repeating-linear-gradient directly tends to stutter.
+   To change speed, edit the "1.6s" below. To reverse direction, swap
+   the from/to background-position values in @keyframes divider-march. */
 .divider {
   height: 26px;
-  background: repeating-linear-gradient(
+  background-image: linear-gradient(
     -45deg,
-    var(--accent) 0 18px,
-    var(--bg) 18px 36px
+    var(--accent) 25%, var(--bg) 25%, var(--bg) 50%,
+    var(--accent) 50%, var(--accent) 75%, var(--bg) 75%, var(--bg) 100%
   );
+  background-size: 36px 36px;
+  animation: divider-march 1.6s linear infinite;
   transform: skewY(-1.2deg);
   margin: -13px 0;
   position: relative;
   z-index: 2;
+}
+
+@keyframes divider-march {
+  from { background-position: 0 0; }
+  to { background-position: 36px 0; }
 }
 
 /* ============================================
@@ -165,9 +178,7 @@ section, .footer {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.4fr 0.9fr;
-  gap: 3rem;
-  align-items: center;
+  grid-template-columns: 1fr;
 }
 
 .hero-title {
@@ -205,37 +216,6 @@ section, .footer {
 .btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
 
 .btn-ghost:hover { background: var(--beige); color: var(--bg); }
-
-.hero-mark {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.stamp {
-  width: min(220px, 60vw);
-  color: var(--accent-2);
-  transform: rotate(-8deg);
-}
-
-.stamp-text {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
-  fill: var(--accent-2);
-  letter-spacing: 0.05em;
-}
-.stamp-star { font-size: 12px; fill: var(--accent-2); }
-
-.tape {
-  position: absolute;
-  width: 70px;
-  height: 22px;
-  background: rgba(232, 220, 195, 0.15);
-  border: 1px solid rgba(232, 220, 195, 0.3);
-}
-.tape-a { top: -6px; left: 20%; transform: rotate(-14deg); }
-.tape-b { bottom: 0; right: 12%; transform: rotate(10deg); }
 
 /* ============================================
    ABOUT
@@ -289,6 +269,28 @@ section, .footer {
 .project-media {
   aspect-ratio: 4 / 3;
   border: 2px dashed var(--line);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ============================================
+   PROJECT SCREENSHOT CAROUSEL
+   ============================================
+   .carousel-track holds one .carousel-slide per screenshot, laid out
+   side by side; script.js slides it left/right and builds the dots.
+   With only one slide, script.js adds "single-slide" and the arrows/
+   dots are hidden automatically — you don't need to remove anything
+   by hand if a project only ends up with one screenshot. */
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.35s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -296,6 +298,66 @@ section, .footer {
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* Once you put a real <img>, <video>, or <iframe> inside a slide (see
+   the comments in index.html), this makes it fill the frame and crop
+   neatly instead of stretching. */
+.carousel-slide img,
+.carousel-slide video,
+.carousel-slide iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 14, 11, 0.7);
+  color: var(--beige);
+  border: 1px solid var(--line);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+.carousel-arrow:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.carousel-prev { left: 0.5rem; }
+.carousel-next { right: 0.5rem; }
+
+.carousel-dots {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.4rem;
+  z-index: 2;
+}
+
+.carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(232, 220, 195, 0.35);
+}
+.carousel-dot.is-active { background: var(--accent-2); }
+
+/* Auto-added by script.js when a project only has one slide. */
+.project-media.single-slide .carousel-arrow,
+.project-media.single-slide .carousel-dots {
+  display: none;
 }
 
 .project-tags { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
@@ -355,14 +417,14 @@ section, .footer {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .btn:hover { transform: none; }
+  .divider { animation: none; }
+  .carousel-track { transition: none; }
 }
 
 /* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 860px) {
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-mark { order: -1; margin-bottom: 1rem; }
   .about-grid { grid-template-columns: 1fr; }
   .project-card { grid-template-columns: 1fr; transform: none !important; }
 }
