@@ -4,13 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>[YOUR NAME] — Portfolio</title>
-<meta name="description" content="UI/UX design, full-stack development, and AR — portfolio of [YOUR NAME].">
+<meta name="description" content="UI/UX design and full-stack development — portfolio of [YOUR NAME].">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!--
+  ============================================================
+  HOW THIS FILE IS ORGANIZED
+  ============================================================
+  Four sections, each wrapped in <section>...</section>, separated
+  by a <div class="divider"></div> (the animated diagonal stripe band).
+
+  TO DELETE AN ENTIRE SECTION:
+    1. Delete the <section class="...">...</section> block.
+    2. Delete ONE of the two <div class="divider"> lines next to it
+       (so you don't end up with two stripes back to back).
+
+  Anything in [BRACKETS] is a placeholder — search for "[" to find
+  everything you still need to fill in.
+  ============================================================
+-->
 
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -37,28 +53,18 @@
     <div class="hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">// IT GRADUATE, CUM LAUDE — OPEN TO WORK</p>
-        <h1 class="hero-title">DESIGN IT.<br>BUILD IT.<br><span class="outline">BREAK THE GRID.</span></h1>
-        <p class="hero-sub">I'm <strong>[YOUR NAME]</strong> — I work across UI/UX design, full-stack
-          development, and AR/Unity builds, with a sketchbook that never really closed. This site is
-          where the code side and the art side finally share a page.</p>
+        <h1 class="hero-title">DESIGN.<br>DEVELOP.<br><span class="outline">DELIVER.</span></h1>
+        <p class="hero-sub">I'm <strong>[YOUR NAME]</strong> — I work across UI/UX design and
+          full-stack development. This site is where the code side and the art side finally
+          share a page.</p>
         <div class="hero-actions">
           <a href="#work" class="btn btn-primary">SEE THE WORK ↓</a>
           <a href="#contact" class="btn btn-ghost">SAY HELLO →</a>
         </div>
       </div>
-      <div class="hero-mark" aria-hidden="true">
-        <div class="stamp">
-          <svg viewBox="0 0 160 160">
-            <circle cx="80" cy="80" r="70" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 5"/>
-            <circle cx="80" cy="80" r="58" fill="none" stroke="currentColor" stroke-width="1.5"/>
-            <text x="80" y="55" text-anchor="middle" class="stamp-text">AVAILABLE</text>
-            <text x="80" y="90" text-anchor="middle" class="stamp-text">FOR WORK</text>
-            <text x="80" y="115" text-anchor="middle" class="stamp-star">★ ★ ★</text>
-          </svg>
-        </div>
-        <div class="tape tape-a"></div>
-        <div class="tape tape-b"></div>
-      </div>
+      <!-- Stamp graphic removed for now. To bring back a decorative element
+           later, this is a good spot for it — just re-add a column here
+           and switch .hero-grid back to a two-column layout in style.css. -->
     </div>
   </section>
 
@@ -81,6 +87,10 @@
         <strong>full-stack development</strong>, or the hybrid tech-and-art roles that don't
         usually get their own job title but should.
       </p>
+      <!-- Add/remove skills by adding/deleting <li> lines. "AR / Unity
+           Development" and "Illustration & Graphic Art" are still here —
+           worth double-checking these still match what you want to claim
+           up front, same as the AR/Unity call you just made for the hero. -->
       <ul class="skills">
         <li>UI / UX Design</li>
         <li>Full-Stack Development</li>
@@ -101,8 +111,36 @@
 
     <div class="projects">
 
+      <!-- ================= PROJECT 1 =================
+           CAROUSEL: each <div class="carousel-slide"> below is one
+           screenshot. To add more, copy a whole carousel-slide div and
+           edit it — the arrows and dots are generated automatically by
+           script.js based on however many slides are here (1 slide =
+           arrows/dots auto-hide).
+
+           To use a real screenshot instead of the placeholder text,
+           replace the <span> inside a slide with:
+             <img src="images/project1-1.png" alt="Screenshot of the code-switching learning app, home screen">
+           or for video:
+             <video src="images/project1-1.mp4" controls muted></video>
+
+           Put image/video files in an "images" folder next to index.html.
+
+           LINKS: if you don't have a live demo or public source code for
+           this project (common for client work), just delete that <a>
+           line. If you delete both <a> lines, you can delete the whole
+           <div class="project-links">...</div> block too.
+      -->
       <article class="project-card rotate-a">
-        <div class="project-media" aria-hidden="true"><span>ADD SCREENSHOT</span></div>
+        <div class="project-media" data-carousel>
+          <div class="carousel-track">
+            <div class="carousel-slide"><span>ADD SCREENSHOT 1</span></div>
+            <div class="carousel-slide"><span>ADD SCREENSHOT 2</span></div>
+          </div>
+          <button class="carousel-arrow carousel-prev" aria-label="Previous screenshot" type="button">‹</button>
+          <button class="carousel-arrow carousel-next" aria-label="Next screenshot" type="button">›</button>
+          <div class="carousel-dots"></div>
+        </div>
         <div class="project-body">
           <p class="project-tags"><span>UI/UX</span><span>MOBILE APP</span><span>CLIENT WORK</span></p>
           <h3>Code-Switching Learning App</h3>
@@ -117,8 +155,18 @@
         </div>
       </article>
 
+      <!-- ================= PROJECT 2 =================
+           Same carousel pattern as Project 1 above. -->
       <article class="project-card rotate-b">
-        <div class="project-media" aria-hidden="true"><span>ADD SCREENSHOT</span></div>
+        <div class="project-media" data-carousel>
+          <div class="carousel-track">
+            <div class="carousel-slide"><span>ADD SCREENSHOT 1</span></div>
+            <div class="carousel-slide"><span>ADD SCREENSHOT 2</span></div>
+          </div>
+          <button class="carousel-arrow carousel-prev" aria-label="Previous screenshot" type="button">‹</button>
+          <button class="carousel-arrow carousel-next" aria-label="Next screenshot" type="button">›</button>
+          <div class="carousel-dots"></div>
+        </div>
         <div class="project-body">
           <p class="project-tags"><span>UNITY</span><span>VUFORIA</span><span>AR/VR</span></p>
           <h3>AR Heritage Tourism App</h3>
@@ -132,19 +180,10 @@
         </div>
       </article>
 
-      <article class="project-card rotate-a">
-        <div class="project-media" aria-hidden="true"><span>ADD ARTWORK</span></div>
-        <div class="project-body">
-          <p class="project-tags"><span>ILLUSTRATION</span><span>GRAPHIC ART</span><span>COMMISSIONS</span></p>
-          <h3>Illustration &amp; Commissions</h3>
-          <p>Visual art and character illustration on the side — brutalist, punk-leaning, a little
-            loud on purpose. Open for commission work; drop a note through the contact section
-            below.</p>
-          <div class="project-links">
-            <a href="#">View gallery →</a>
-          </div>
-        </div>
-      </article>
+      <!-- Want to add a third project? Copy one whole <article
+           class="project-card ...">...</article> block above, paste it
+           here, and edit the content. Alternate rotate-a / rotate-b on
+           each new card so they keep the slight left/right tilt pattern. -->
 
     </div>
   </section>
@@ -158,10 +197,10 @@
       <h2>LET'S BUILD<br>SOMETHING.</h2>
     </div>
     <a class="contact-email" href="mailto:youremail@example.com">[YOUREMAIL@EXAMPLE.COM]</a>
+    <!-- Delete any line below you don't want to show. -->
     <div class="contact-links">
       <a href="https://github.com/yourhandle" target="_blank" rel="noopener">GitHub ↗</a>
       <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a href="#" target="_blank" rel="noopener">Art / Commissions ↗</a>
     </div>
   </section>
 
